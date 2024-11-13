@@ -8,6 +8,9 @@
   --negative-color: #ec2222;
   --time-duration: 0.3s;
   --time-function: ease-in-out;
+  --bar-height: 3px;
+  --bar-width: 30px;
+  --bar-gap: 10px;
 }
 
 *,
@@ -26,6 +29,10 @@ body {
   font-size: 1.1rem;
   margin: 0 auto;
   /* max-width: 1400px; */
+}
+
+.main {
+  min-height: 100vh;
 }
 
 /* list */
@@ -53,7 +60,7 @@ footer .list {
   width: 100%;
 }
 
-footer .list .list-item{
+footer .list .list-item {
   width: 100px;
 }
 
@@ -72,7 +79,7 @@ footer .list .list-item .link .caret-up-icon {
   display: none;
 }
 
-footer .list .link .container{
+footer .list .link .container {
   font-size: 1.5rem;
   margin-left: 10px;
 }
@@ -82,10 +89,10 @@ footer .list .link .container{
     justify-content: center;
     gap: 25px;
     font-size: 2rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
-  footer .list .list-item{
+  footer .list .list-item {
     width: auto;
   }
 
@@ -139,9 +146,182 @@ footer .list .link .container{
   }
 }
 
+/* menu toggle*/
+.menu-toggle {
+  position: relative;
+  height: calc(var(--bar-height) * 3 + var(--bar-gap) * 3 + 5px);
+  width: calc(var(--bar-width) + 17px);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-property: border-color;
+}
+
+.menu-toggle:hover {
+  border-color: var(--primary-text-color);
+}
+
+.bar,
+.bar::before,
+.bar::after {
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  border-radius: 10px;
+  background-color: var(--primary-text-color);
+  left: 8px;
+  top: var(--bar-gap);
+  transition-property: opacity, top, transform;
+}
+
+.bar::before,
+.bar::after {
+  content: "";
+  left: 0;
+}
+
+.bar::before {
+  top: calc(var(--bar-gap));
+}
+
+.bar::after {
+  top: calc(var(--bar-gap) + 10px);
+}
+
+/* When menu is active (X state) */
+.nav-right.open .menu-toggle .bar {
+  transform: rotate(45deg);
+  top: calc(var(--bar-gap) + 10px)
+}
+
+.nav-right.open .menu-toggle .bar::before {
+  transform: rotate(-90deg);
+  top: 0;
+  opacity: 0;
+}
+
+.nav-right.open .menu-toggle .bar::after {
+  transform: rotate(-95deg);
+  top: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* nav bar */
+.nav-left .home-link div {
+  width: 50px;
+  display: flex;
+  transition: width var(--time-duration) var(--time-function);
+}
+
+.nav-left .home-link img {
+  width: 100%;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.nav-right .menu {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 60px;
+  left: 0;
+  z-index: 10;
+  background-color: white;
+  padding-top: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, -1rem, 0);
+  transition: opacity, visibility, transform;
+}
+
+.nav-right .menu .menu-item{
+  margin-bottom: 10px;
+}
+
+.nav-right .menu .menu-item:last-child{
+  margin: 0;
+}
+
+.nav-right .menu .menu-item .link,
+.nav-right .menu .menu-item .link:visited {
+  color: var(--primary-text-color);
+  text-decoration: none;
+}
+
+.nav-right .menu .menu-item .link{
+  font-size: 2rem;
+  padding: 10px 20px;
+  display: block;
+  width: 100%;
+  transition-property: color, background-color;
+}
+
+.nav-right .menu .menu-item .link span {
+  margin-left: 10px;
+}
+
+.nav-right .menu .menu-item:hover .link,
+.nav-right .menu .menu-item .link.highlight{
+  background-color: var(--hover-color);
+  color: white;
+}
+
+.nav-right.open .menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+@media screen and (min-width: 768px){
+  .nav-left .home-link div{
+    width: 80px;
+  }
+
+  .nav-right .menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    position: unset;
+    display: flex;
+    height: auto;
+    width: auto;
+    padding: 0;
+  }
+
+  .nav-right .menu .menu-item {
+    margin-right: 10px;
+  }
+}
+
 /* Animations */
 footer .list .link,
-footer .list .link .container {
+footer .list .link .container,
+.bar,
+.bar::after,
+.bar::before,
+.menu-toggle,
+.nav-right .menu,
+.nav-right .menu .menu-item .link {
   transition-duration: var(--time-duration);
   transition-timing-function: var(--time-function);
 }
