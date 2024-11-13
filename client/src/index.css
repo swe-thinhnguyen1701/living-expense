@@ -36,7 +36,6 @@ h1, h2, h3, p {
 
 .main {
   min-height: 100vh;
-  padding-top: 65px;
   max-width: 1500px;
   margin: 0 auto;
   display: flex;
@@ -362,6 +361,18 @@ nav {
 .home-page .get-started-link:hover{
   background-color: var(--primary-text-color);
   color: white;
+}
+
+/* Error page */
+.error-page {
+  justify-content: flex-start;
+  padding-top: 85px;
+}
+
+@media screen and (min-width: 768px){
+  .error-page{
+    padding-top: 120px;
+  }
 }
 
 /* Animations */
