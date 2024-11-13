@@ -1,6 +1,147 @@
-:root{
-  --light-theme-bg-clr: #f5f7ff;
-  --light-theme-font-clr: #046db5;
-  --green-clr: #00a036;
-  --red-clr: #ff3131;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  --primary-text-color: #224e87;
+  --secondary-text-color: #000;
+  --hover-color: #497fc5;
+  --positive-color: #24d824;
+  --negative-color: #ec2222;
+  --time-duration: 0.3s;
+  --time-function: ease-in-out;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  font-size: 1.1rem;
+  margin: 0 auto;
+  /* max-width: 1400px; */
+}
+
+/* list */
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* footer */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  background-color: #f5f5f7;
+}
+
+footer .list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 25px;
+  font-size: 2rem;
+  width: 100%;
+}
+
+footer .list .list-item{
+  width: 100px;
+}
+
+footer .list .link,
+footer .list .link:visited {
+  color: var(--primary-text-color);
+  text-decoration: none;
+}
+
+footer .list .link {
+  display: flex;
+  align-items: center;
+}
+
+footer .list .list-item .link .caret-up-icon {
+  display: none;
+}
+
+footer .list .link .container{
+  font-size: 1.5rem;
+  margin-left: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  footer .list {
+    justify-content: center;
+    gap: 25px;
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  footer .list .list-item{
+    width: auto;
+  }
+
+  footer .list .link {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    transition-property: border-color;
+  }
+
+  footer .list .link:hover {
+    border-color: var(--primary-text-color);
+  }
+
+  footer .list .link .container {
+    text-align: center;
+    position: absolute;
+    font-size: 1.2rem;
+    bottom: -25px;
+    left: -9px;
+    background-color: var(--primary-text-color);
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0, -1rem, 0);
+    transition-property: opacity, visibility, transform;
+    margin: 0;
+  }
+
+  footer .list .link:hover .container {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+  }
+
+  footer .list .link .container .link-description {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+  }
+
+  footer .list .link .container .link-description .caret-up-icon {
+    display: inline;
+    position: absolute;
+    top: -7.5px;
+    left: 25.2px;
+    color: var(--primary-text-color);
+  }
+}
+
+/* Animations */
+footer .list .link,
+footer .list .link .container {
+  transition-duration: var(--time-duration);
+  transition-timing-function: var(--time-function);
 }
