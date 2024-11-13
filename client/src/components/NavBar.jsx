@@ -7,12 +7,15 @@ import logo from "../assets/logo.webp";
 function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
     const currentPath = useLocation().pathname;
-
+    const selectedMenuItemHandler = (e) => {
+        if(e.target.closest(".menu-item"))
+            setIsOpen(!isOpen);
+    }
     return (
         <nav>
             <div className="nav-container">
                 <div className="nav-left">
-                    <Link to="/" className="link home-link">
+                    <Link to="/" className="link home-link" onClick={() => (setIsOpen(false))}>
                         <div><img src={logo} alt="logo" /></div>
                     </Link>
                 </div>
@@ -20,7 +23,7 @@ function NavBar() {
                     <div className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
                         <span className="bar"></span>
                     </div>
-                    <ul className="list menu">
+                    <ul className="list menu" onClick={(e) => selectedMenuItemHandler(e)}>
                         <li className="menu-item">
                             <Link to="/" className={currentPath === "/" ? "link highlight" : "link"}>
                                 <FontAwesomeIcon icon={faHouse}/>
@@ -30,7 +33,7 @@ function NavBar() {
                         <li className="menu-item">
                             <Link to="/dashboard" className="link">
                                 <FontAwesomeIcon icon={faChartSimple}/>
-                                <span>Dashboard</span>
+                                <span>Dash board</span>
                             </Link>
                         </li>
                         <li className="menu-item">
