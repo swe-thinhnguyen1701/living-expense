@@ -30,7 +30,10 @@ body {
   margin: 0 auto;
 }
 
-h1, h2, h3, p {
+h1,
+h2,
+h3,
+p {
   margin: 0;
 }
 
@@ -261,11 +264,11 @@ footer .list .link .container {
   transition: opacity, visibility, transform;
 }
 
-.nav-right .menu .menu-item{
+.nav-right .menu .menu-item {
   margin-bottom: 10px;
 }
 
-.nav-right .menu .menu-item:last-child{
+.nav-right .menu .menu-item:last-child {
   margin: 0;
 }
 
@@ -274,7 +277,7 @@ footer .list .link .container {
   color: var(--primary-text-color);
 }
 
-.nav-right .menu .menu-item .link{
+.nav-right .menu .menu-item .link {
   font-size: 2rem;
   padding: 10px 20px;
   display: block;
@@ -287,7 +290,7 @@ footer .list .link .container {
 }
 
 .nav-right .menu .menu-item:hover .link,
-.nav-right .menu .menu-item .link.highlight{
+.nav-right .menu .menu-item .link.highlight {
   background-color: var(--hover-color);
   color: white;
 }
@@ -304,12 +307,12 @@ nav {
   backdrop-filter: blur(10px);
 }
 
-@media screen and (min-width: 768px){
-  .nav-left .home-link div{
+@media screen and (min-width: 768px) {
+  .nav-left .home-link div {
     width: 80px;
   }
 
-  .nav-right .menu{
+  .nav-right .menu {
     opacity: 1;
     visibility: visible;
     transform: translate3d(0, 0, 0);
@@ -332,7 +335,7 @@ nav {
   align-items: center;
 }
 
-.home-page div{
+.home-page div {
   width: 200px;
 }
 
@@ -358,7 +361,7 @@ nav {
   transition-property: color, background-color;
 }
 
-.home-page .get-started-link:hover{
+.home-page .get-started-link:hover {
   background-color: var(--primary-text-color);
   color: white;
 }
@@ -369,15 +372,90 @@ nav {
   padding-top: 85px;
 }
 
-@media screen and (min-width: 768px){
-  .error-page{
+@media screen and (min-width: 768px) {
+  .error-page {
     padding-top: 120px;
   }
 }
 
 /* dash board */
-.dash-board {
-  
+.dash-board {}
+
+/* expense form */
+.expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.expense-form input,
+.expense-form select,
+.expense-form button {
+  padding: 10px;
+  outline: none;
+  border: 2px solid #d3d3d388;
+  transition-property: border-color;
+  border-radius: 10px;
+}
+
+.expense-form input:focus,
+.expense-form select:focus,
+.expense-form button:focus {
+  border-width: 2px;
+  border-color: var(--primary-text-color);
+}
+
+.expense-form button {
+  color: var(--primary-text-color);
+  background-color: unset;
+  border-color: var(--primary-text-color);
+  transition-property: color, background-color;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.expense-form button:hover {
+  background-color: var(--primary-text-color);
+  color: white;
+}
+
+.expense-form .expense-amount {
+  padding-left: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .expense-form {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 0;
+  }
+
+  .expense-form .expense-amount {
+    width: 13.02vw;
+  }
+
+  .expense-form .expense-category {
+    width: 19.53vw;
+  }
+}
+
+@media screen and (min-width: 1024px){
+  .expense-form{
+    justify-content: start;
+    gap: 10px;
+    max-width: 1024px;
+  }
+
+  .expense-form .expense-amount{
+    width: 120px;
+  }
+
+  .expense-form .expense-category{
+    width: 200px;
+  }
 }
 
 /* Animations */
@@ -389,7 +467,10 @@ footer .list .link .container,
 .menu-toggle,
 .nav-right .menu,
 .nav-right .menu .menu-item .link,
-.home-page .get-started-link {
+.home-page .get-started-link,
+.expense-form input,
+.expense-form select,
+.expense-form button {
   transition-duration: var(--time-duration);
   transition-timing-function: var(--time-function);
 }
