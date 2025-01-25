@@ -35,7 +35,7 @@ const typeDefs = `
     type Mutation {
         login(username: String!, password: String): Auth
         addUser(user: UserInput!): Auth
-        setBudget(amount: float!): User
+        setBudget(amount: Float!): User
         addIncome(income: IncomeInput!): User
         addExpense(expense: ExpenseInput!): User
         removeIncome(incomeId: ID!): User

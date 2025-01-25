@@ -14,11 +14,11 @@ const resolvers = {
         }
     },
     Mutation: {
-        addUser: async (_parent, { username, email, password }) => {
-            const user = await User.create({ username, email, password });
+        addUser: async (_parent, { user }) => {
+            const newUser = await User.create(user);
             const token = signToken(user);
 
-            return { token, user };
+            return { token, newUser };
         },
         login: async (_parent, { username, password }) => {
             try {
@@ -68,9 +68,9 @@ const resolvers = {
 
             throw AuthenticationError;
         },
-        removeIncome(_parent, { incomeId }, context) {
+        removeIncome: async (_parent, { incomeId }, context) => {
             if (context.user) {
-                const user = User.findByIdAndUpdate(
+                const user = await User.findByIdAndUpdate(
                     context.user._id,
                     { $pull: { incomes: { _id: incomeId } } },
                     { new: true });
@@ -79,9 +79,9 @@ const resolvers = {
 
             throw AuthenticationError;
         },
-        removeExpense(_parent, { expenseId }, context) {
+        removeExpense: async (_parent, { expenseId }, context) => {
             if (context.user) {
-                const user = User.findByIdAndUpdate(
+                const user = await User.findByIdAndUpdate(
                     context.user._id,
                     { $pull: { expenses: { _id: expenseId } } },
                     { new: true });
@@ -91,7 +91,7 @@ const resolvers = {
 
             throw AuthenticationError;
         },
-        editIncome(_parent, { incomeId, amount, description }, context) {
+        editIncome: async (_parent, { incomeId, amount, description }, context) => {
             const updateField = {};
             if(amount !== undefined) 
                 updateField["incomes.$.amount"] = amount;
@@ -99,7 +99,7 @@ const resolvers = {
                 updateField["incomes.$.description"] = description;
 
             if (context.user) {
-                return User.findOneAndUpdate(
+                return await User.findOneAndUpdate(
                     { _id: context.user._id, "incomes._id": incomeId },
                     { $set: updateField },
                     { new: true }
@@ -108,7 +108,7 @@ const resolvers = {
 
             throw AuthenticationError;
         },
-        editExpense(_parent, { expenseId, description, amount, category, note }, context) {
+        editExpense: async (_parent, { expenseId, description, amount, category, note }, context) => {
             const updateField = {};
             if(description !== undefined)
                 updateField["expenses.$.description"] = description;
@@ -120,7 +120,7 @@ const resolvers = {
                 updateField["expenses.$.note"] = note;
 
             if (context.user) {
-                return User.findOneAndUpdate(
+                return await User.findOneAndUpdate(
                     { _id: context.user._id, "expenses._id": expenseId },
                     { $set: updateField },
                     { new: true }
