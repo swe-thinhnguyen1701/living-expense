@@ -1,7 +1,6 @@
 const typeDefs = `
     type User {
-        _id: ID!
-        username: String!
+        _id: ID
         email: String!
         password: String!
         budgets: Int
@@ -10,20 +9,18 @@ const typeDefs = `
     }
 
     type Income {
-        _id: ID!
+        _id: ID
         amount: Float!
         description: String!
-        userId: ID!
     }
 
     type Expense {
-        _id: ID!
+        _id: ID
         description: String!
         amount: Float!
         category: String!
         date: String!
         note: String
-        userId: ID!
     }
 
     type Auth {
@@ -33,8 +30,6 @@ const typeDefs = `
 
     type Query {
         me: User
-        getExpenses(userId: ID!): [Expense]
-        getIncomes(userId: ID!): [Income]
     }
 
     type Mutation {
