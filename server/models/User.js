@@ -30,7 +30,7 @@ const userSchema = new Schema({
         type: Number,
         default: 0,
         max: 999999,
-        min: 0.01
+        min: 0.00
     }
 });
 
