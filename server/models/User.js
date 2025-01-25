@@ -1,5 +1,7 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
+const incomeSchema = require("./Income");
+const expenseSchema = require("./Expense");
 
 const userSchema = new Schema({
     username: {
@@ -22,14 +24,8 @@ const userSchema = new Schema({
         minlength: 8,
         maxlength: 32
     },
-    incomes: [{
-        type: Schema.Types.ObjectId,
-        ref: "Income"
-    }],
-    expenses: [{
-        type: Schema.Types.ObjectId,
-        ref: "Expense"
-    }],
+    incomes: [incomeSchema],
+    expenses: [expenseSchema],
     budgets: {
         type: Number,
         default: 0,
@@ -43,6 +39,8 @@ userSchema.pre("save", async function(next) {
         const saltRounds = 10;
         this.password = await bcrypt.hash(this.password, saltRounds);
     }
+
+    next();
 });
 
 userSchema.methods.isCorrectPassword = async function (password) {

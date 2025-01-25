@@ -12,13 +12,7 @@ const incomeSchema = new Schema({
         trim: true,
         required: true,
         maxlength: 100
-    },
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
     }
 });
 
-const Income = model("Income", incomeSchema);
-
-module.exports = Income;
+module.exports = incomeSchema;

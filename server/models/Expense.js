@@ -19,14 +19,7 @@ const expenseSchema = new Schema({
     },
     note: {
         type: String
-    },
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
     }
 });
 
-const Expense = model("Expense", expenseSchema);
-
-module.exports = Expense;
+module.exports = expenseSchema;
