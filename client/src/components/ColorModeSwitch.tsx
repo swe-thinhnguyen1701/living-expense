@@ -9,9 +9,6 @@ const ColorModeScript = () => {
             aria-label="Toggle dark mode"
             icon={useColorMode().colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
             onClick={toggleColorMode}
-            position="absolute"
-            top={4}
-            right={4}
         />
     )
 }
