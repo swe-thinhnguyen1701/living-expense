@@ -8,6 +8,7 @@ import "./index.css";
 
 import App from "./App.tsx";
 import Home from "./pages/Home.tsx";
+import DashBoard from "./pages/DashBoard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
+      },
+      {
+        path: "/dashboard",
+        element: <DashBoard />
       }
     ]
   }
