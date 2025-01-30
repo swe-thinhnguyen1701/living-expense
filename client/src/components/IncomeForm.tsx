@@ -1,52 +1,54 @@
-import { useState } from "react";
-import { Flex, FormControl, FormErrorMessage, Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
-
+import { Button, Flex, FormControl, FormErrorMessage, Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
+import useIncomes from "../hooks/useIncomes";
 
 const IncomeForm = () => {
-    const [showErrorMessage, setShowErrorMessage] = useState(0);
-    const ERROR_MESSAGES = ["", "Only accept numbers", "Amount cannot exceed 999,999.99"]
-    const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (isNaN(Number(e.target.value)) || e.target.value.includes(" ")) {
-            e.target.value = e.target.value.slice(0, -1);
-            setShowErrorMessage(1);
-            return;
-        }
-        if(e.target.value.includes(".")){
-            const splitValue = e.target.value.split(".");
-            if(splitValue[1].length > 2){
-                e.target.value = e.target.value.slice(0, -1);
-                setShowErrorMessage(1);
-                return;
-            }
-        }
-        if(e.target.value.length > 6 && !e.target.value.includes(".")){
-            e.target.value = e.target.value.slice(0, -1);
-            setShowErrorMessage(2);
-            return;
-        }
-        setShowErrorMessage(0);
-    }
-    
+    const { amountInput, descriptionInput, addIncome } = useIncomes();
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        addIncome();
+    };
+
     return (
-        <form>
-            <Flex gap={4} padding={4}>
-                <FormControl isInvalid={showErrorMessage === 0 ? false : true} width="200px">
+        <form onSubmit={handleSubmit}>
+            <Flex gap={4}>
+                <FormControl isInvalid={amountInput.error !== "pass"} className="amount">
                     <InputGroup>
                         <InputLeftAddon>$</InputLeftAddon>
                         <Input
                             placeholder="Amount"
                             maxLength={9}
-                            onChange={inputOnChange} />
+                            onChange={amountInput.onChange}
+                            value={amountInput.value} />
                     </InputGroup>
-                    {showErrorMessage !== 0 &&
-                        <FormErrorMessage>
-                            {ERROR_MESSAGES[showErrorMessage]}
-                        </FormErrorMessage>}
+                    <FormErrorMessage>
+                        {amountInput.error}
+                    </FormErrorMessage>
                 </FormControl>
-                <InputGroup>
-                    <Input placeholder="Description" />
-                </InputGroup>
+                <FormControl isInvalid={descriptionInput.error !== "pass"}>
+                    <InputGroup>
+                        <Input
+                            placeholder="Description"
+                            maxLength={100}
+                            onChange={descriptionInput.onChange}
+                            value={descriptionInput.value} />
+                    </InputGroup>
+                    <FormErrorMessage>
+                        {descriptionInput.error}
+                    </FormErrorMessage>
+                </FormControl>
             </Flex>
+            <Button
+                isDisabled={
+                    amountInput.error !== "pass" ||
+                    descriptionInput.error !== "pass" ||
+                    amountInput.value === "" ||
+                    descriptionInput.value === ""
+                }
+                type="submit"
+                bg="blue.500"
+                color="white">
+                ADD
+            </Button>
         </form>
     )
 }
