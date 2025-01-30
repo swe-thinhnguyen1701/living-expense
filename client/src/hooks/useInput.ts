@@ -14,14 +14,9 @@ const useInput = (validator: Validator, initialValue = "") => {
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newVal = e.target.value;
-
         const res = validator(newVal);
 
-        // if (res === "pass")
-            setValue(newVal);
-        // else
-            // e.target.value = value;
-
+        setValue(newVal);
         setError(res);
     };
 

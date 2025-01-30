@@ -10,7 +10,7 @@ const IncomeForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Flex gap={4}>
+            <Flex gap={4} marginBottom={6}>
                 <FormControl isInvalid={amountInput.error !== "pass"} className="amount">
                     <InputGroup>
                         <InputLeftAddon>$</InputLeftAddon>
